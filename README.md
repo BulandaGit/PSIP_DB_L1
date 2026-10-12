@@ -3,3 +3,4 @@
 - DAWID - Bocheński
 - Jakub - chełmski
 - Jan - miński
+- Kacper - legnicki
