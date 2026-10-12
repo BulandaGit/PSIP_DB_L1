@@ -10,3 +10,4 @@
 - Tymoteusz - toruński
 - Dominik - koniński
 - Daniel - sochaczewski
+- Bartek - radomszczański
