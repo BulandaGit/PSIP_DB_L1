@@ -7,3 +7,4 @@
 - Julia - hajnowski
 - Jan - warszawski
 - Marcin - miński
+- Tymoteusz - toruński
