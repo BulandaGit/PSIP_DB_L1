@@ -2,3 +2,4 @@
 
 - DAWID - Bocheński
 - Jakub - chełmski
+- Jan - miński
