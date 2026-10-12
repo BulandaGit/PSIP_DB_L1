@@ -1,4 +1,14 @@
 # PSIP\_DB\_L1
-
+- Stanisław - turecki
 - DAWID - Bocheński
-
+- Jakub - chełmski
+- Jan - miński
+- Kacper - legnicki
+- Julia - hajnowski
+- Jan - warszawski
+- Marcin - miński
+- Tymoteusz - toruński
+- Dominik - koniński
+- Daniel - sochaczewski
+- Bartek - radomszczański
+- Michał - biłgorajski
