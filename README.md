@@ -11,3 +11,4 @@
 - Dominik - koniński
 - Daniel - sochaczewski
 - Bartek - radomszczański
+- Michał - biłgorajski
