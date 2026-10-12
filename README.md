@@ -9,3 +9,4 @@
 - Marcin - miński
 - Tymoteusz - toruński
 - Dominik - koniński
+- Daniel - sochaczewski
