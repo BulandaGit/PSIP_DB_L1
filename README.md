@@ -4,3 +4,4 @@
 - Jakub - chełmski
 - Jan - miński
 - Kacper - legnicki
+- Julia - hajnowski
