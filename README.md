@@ -2,3 +2,4 @@
 
 - DAWID - Bocheński
 - Bartek - radomszczański
+- Marcin - miński
