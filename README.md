@@ -8,3 +8,4 @@
 - Jan - warszawski
 - Marcin - miński
 - Tymoteusz - toruński
+- Dominik - koniński
