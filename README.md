@@ -6,3 +6,4 @@
 - Kacper - legnicki
 - Julia - hajnowski
 - Jan - warszawski
+- Marcin - miński
