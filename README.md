@@ -12,3 +12,4 @@
 - Daniel - sochaczewski
 - Bartek - radomszczański
 - Michał - biłgorajski
+- Maciej - kutnowski
