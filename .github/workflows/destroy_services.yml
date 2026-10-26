@@ -1,0 +1,42 @@
+name: Destroy PostGIS
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_delete_data:
+        description: 'Usun baze i wszystkie jej dane dla wybranej galezi'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: remote-db-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  destroy:
+    if: contains(fromJSON('["env-test","env-qa","main"]'), github.ref_name)
+    runs-on: [self-hosted, Linux, X64, psip-db]
+    environment: ${{ github.ref_name }}
+    timeout-minutes: 5
+    env:
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      DELETE_DATA: ${{ inputs.confirm_delete_data }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Confirm deletion of data for this branch
+        run: |
+          if [ "$DELETE_DATA" != 'true' ]; then
+            echo 'Zaznacz confirm_delete_data, aby usunac zasoby.' >&2
+            exit 2
+          fi
+      - name: Remove database, network and volume
+        run: CONFIRM_DESTROY="$GITHUB_REF_NAME" bash scripts/services.sh destroy "$GITHUB_REF_NAME"

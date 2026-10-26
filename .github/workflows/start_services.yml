@@ -1,0 +1,54 @@
+name: Start PostGIS
+
+on:
+  push:
+    branches: [env-test, env-qa, main]
+  pull_request:
+    branches: [env-test, env-qa, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: remote-db-${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate Compose
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: psip
+      POSTGRES_DB: psip
+      POSTGRES_PASSWORD: validation-only
+      POSTGRES_PORT: '5445'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: docker compose -f docker_compose.yml config --quiet
+      - run: bash -n scripts/services.sh docker/runner/entrypoint.sh
+
+  deploy:
+    name: Deploy ${{ github.ref_name }}
+    needs: validate
+    if: github.event_name != 'pull_request' && contains(fromJSON('["env-test","env-qa","main"]'), github.ref_name)
+    runs-on: [self-hosted, Linux, X64, psip-db]
+    environment: ${{ github.ref_name }}
+    timeout-minutes: 15
+    env:
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Start database and verify PostGIS
+        run: bash scripts/services.sh start "$GITHUB_REF_NAME"
+      - name: Deployment summary
+        run: |
+          printf '### PostGIS %s\n\nProject: `remote-db-%s`\n\nAddress: `127.0.0.1:%s`\n' \
+            "$GITHUB_REF_NAME" "$GITHUB_REF_NAME" "$POSTGRES_PORT" >> "$GITHUB_STEP_SUMMARY"

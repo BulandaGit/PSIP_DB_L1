@@ -1,0 +1,17 @@
+services:
+  runner:
+    image: psip-local-runner:lab2
+    build:
+      context: .
+      dockerfile: docker/runner/Dockerfile
+    environment:
+      RUNNER_REPO_URL: https://github.com/BulandaGit/PSIP_DB_L1
+      RUNNER_NAME: psip-local-docker
+    volumes:
+      - runner-state:/runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+volumes:
+  runner-state:
