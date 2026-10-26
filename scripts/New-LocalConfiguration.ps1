@@ -6,7 +6,15 @@ $projectRoot = Split-Path $PSScriptRoot -Parent
 $localDirectory = Join-Path $projectRoot '.local'
 New-Item -ItemType Directory -Path $localDirectory -Force | Out-Null
 
+$existingVolumes = @(& docker volume ls --format '{{.Name}}')
+if ($LASTEXITCODE -ne 0) { throw 'Nie mozna sprawdzic wolumenow. Uruchom Docker Desktop.' }
 $ports = [ordered]@{ 'env-test' = 5445; 'env-qa' = 5446; 'main' = 5447 }
+foreach ($environment in $ports.Keys) {
+    $configurationPath = Join-Path $localDirectory "$environment.env"
+    if (-not (Test-Path -LiteralPath $configurationPath) -and $existingVolumes -contains "remote-db-${environment}_pgdata") {
+        throw "Baza $environment juz istnieje, ale brakuje .local/$environment.env. Przywroc jej dotychczasowa konfiguracje przed kontynuowaniem."
+    }
+}
 foreach ($environment in $ports.Keys) {
     $configurationPath = Join-Path $localDirectory "$environment.env"
     if (Test-Path -LiteralPath $configurationPath) {

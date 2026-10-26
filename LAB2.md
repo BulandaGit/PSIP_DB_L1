@@ -16,7 +16,7 @@ GitHub Actions uruchamia bazy PostGIS na tym komputerze przez runnera w kontener
 4. Skrypt tworzy środowiska `env-test`, `env-qa`, `main`. W każdym ustawia zmienne `POSTGRES_USER`, `POSTGRES_DB`, `POSTGRES_PORT` i sekret `POSTGRES_PASSWORD`.
 5. Skrypt rejestruje runnera `psip-local-docker` z etykietą `psip-db`. Runner korzysta z oficjalnego obrazu GitHuba i silnika Docker Desktop przez gniazdo Dockera. Nie wymaga trybu `privileged` ani osobnego silnika Docker wewnątrz kontenera.
 
-Hasła są losowane osobno dla środowisk i zapisane lokalnie w `.local/*.env`. Katalog `.local` jest wykluczony z Git. Ponowne uruchomienie skryptu zachowuje hasła. Token classic istnieje tylko w pamięci procesu podczas konfiguracji; runner otrzymuje krótkotrwały token rejestracyjny przez standardowe wejście. Pliki poświadczeń zarejestrowanego runnera pozostają w jego osobnym wolumenie.
+Hasła są losowane osobno dla środowisk i zapisane lokalnie w `.local/*.env`. Katalog `.local` jest wykluczony z Git. Ponowne uruchomienie skryptu zachowuje hasła. Jeśli istnieje już wolumen bazy, a brakuje jej lokalnej konfiguracji, skrypt zatrzymuje się i wymaga odtworzenia konfiguracji. Token classic istnieje tylko w pamięci procesu podczas konfiguracji; runner otrzymuje krótkotrwały token rejestracyjny przez standardowe wejście. Pliki poświadczeń zarejestrowanego runnera pozostają w jego osobnym wolumenie.
 
 ## Automatyczne uruchamianie
 
