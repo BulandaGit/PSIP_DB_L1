@@ -1,0 +1,58 @@
+name: Load H3 grids
+
+on:
+  pull_request:
+    branches: [env-test, env-qa, main]
+    paths:
+      - 'app/**'
+      - 'add/load.py'
+      - 'docker/python/**'
+      - 'docker_compose.yml'
+      - '.github/workflows/load_grid.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate H3 generator
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build Python tools
+        run: docker build -f docker/python/Dockerfile -t psip-h3-tools:lab2 .
+      - name: Check geometry generation
+        run: docker run --rm psip-h3-tools:lab2 python -m unittest discover -s /app/python/tests -v
+
+  load:
+    name: Load grid into ${{ matrix.environment }}
+    needs: validate
+    if: github.event_name == 'workflow_dispatch' && github.ref_name == 'main'
+    runs-on: [self-hosted, Linux, X64, psip-db]
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [env-test, env-qa, main]
+    environment: ${{ matrix.environment }}
+    concurrency:
+      group: remote-db-${{ matrix.environment }}
+      cancel-in-progress: false
+    env:
+      TARGET_ENV: ${{ matrix.environment }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Generate and load the four H3 grids
+        run: docker compose -f docker_compose.yml -p "remote-db-$TARGET_ENV" --profile tools run --rm --build -T python
+      - name: Summary
+        run: |
+          printf '### H3 — %s\n\nPowiat biłgorajski (0602), rozdzielczości 6, 7, 8, 9.\n\nTabele: `grid.powiat`, `grid.h3_r6`, `grid.h3_r7`, `grid.h3_r8`, `grid.h3_r9`.\n' "$TARGET_ENV" >> "$GITHUB_STEP_SUMMARY"

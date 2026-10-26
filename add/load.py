@@ -1,26 +1,11 @@
-import os
-import subprocess
+"""Compatibility entry point for the loader used in laboratory exercise 2."""
+
 from pathlib import Path
+import runpy
+import sys
 
-shapefile = Path("/data/powiat.shp")
-
-if not shapefile.exists():
-    raise FileNotFoundError(f"Nie znaleziono pliku: {shapefile}")
-
-connection = "PG:host=postgis port=5432 dbname=psip user=psip"
-
-command = [
-    "ogr2ogr",
-    "-f", "PostgreSQL",
-    connection,
-    str(shapefile),
-    "-nln", "powiat",
-    "-lco", "GEOMETRY_NAME=geom",
-    "-overwrite",
-]
-
-environment = os.environ.copy()
-environment["PGPASSWORD"] = "psip"
-
-subprocess.run(command, env=environment, check=True)
-print("Załadowano powiat.shp do tabeli powiat w bazie psip.")
+if __name__ == "__main__":
+    # Works in the repository (add/load.py) and the image (/app/load.py).
+    loader = Path(__file__).resolve().parents[1] / "app" / "python" / "load.py"
+    sys.path.insert(0, str(loader.parent))
+    runpy.run_path(str(loader), run_name="__main__")
