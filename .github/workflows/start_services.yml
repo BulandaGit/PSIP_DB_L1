@@ -17,14 +17,14 @@ concurrency:
 jobs:
   validate:
     name: Validate Compose
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       POSTGRES_USER: psip
       POSTGRES_DB: psip
       POSTGRES_PASSWORD: validation-only
       POSTGRES_PORT: '5445'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - run: docker compose -f docker_compose.yml config --quiet
@@ -43,7 +43,7 @@ jobs:
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Start database and verify PostGIS
