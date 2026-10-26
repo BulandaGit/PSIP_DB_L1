@@ -21,15 +21,17 @@ services:
 
   python:
     profiles: ["tools"]
+    image: psip-h3-tools:lab2
     build:
       context: .
       dockerfile: docker/python/Dockerfile
     environment:
+      PGHOST: postgis
+      PGPORT: "5432"
+      PGUSER: ${POSTGRES_USER:-psip}
+      PGDATABASE: ${POSTGRES_DB:-psip}
       PGPASSWORD: ${POSTGRES_PASSWORD:?Ustaw POSTGRES_PASSWORD}
-    volumes:
-      - ./add:/app:ro
-      - ./data:/data:ro
-    command: ["tail", "-f", "/dev/null"]
+    command: ["python", "/app/python/load.py"]
     depends_on:
       postgis:
         condition: service_healthy
