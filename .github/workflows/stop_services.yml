@@ -1,0 +1,29 @@
+name: Stop PostGIS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: remote-db-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  stop:
+    if: contains(fromJSON('["env-test","env-qa","main"]'), github.ref_name)
+    runs-on: [self-hosted, Linux, X64, psip-db]
+    environment: ${{ github.ref_name }}
+    timeout-minutes: 5
+    env:
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Stop database and retain data
+        run: bash scripts/services.sh stop "$GITHUB_REF_NAME"
