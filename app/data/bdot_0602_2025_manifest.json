@@ -1,0 +1,533 @@
+{
+  "county_code": "0602",
+  "year": 2025,
+  "srid": 2180,
+  "layer_count": 65,
+  "total_records": 292766,
+  "layers": [
+    {
+      "layer": "ot_adja_a",
+      "dimension": 3,
+      "records": 21,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "b479b7a4984c877d2655190dee8cd762d31a872bddf2aa28774a457df3910ac1"
+    },
+    {
+      "layer": "ot_adms_a",
+      "dimension": 3,
+      "records": 436,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d4baae3153ba4bc3058fe4cdbc0758d12022dabacef70b699401fa19493d0983"
+    },
+    {
+      "layer": "ot_adms_p",
+      "dimension": 1,
+      "records": 440,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "449489a80c0a658e53ec11def334979ff3429b397efdafb418c886629baf0307"
+    },
+    {
+      "layer": "ot_bubd_a",
+      "dimension": 3,
+      "records": 80383,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "3d87a7fa1c7306ff902649f7001465eeab678d567b67bede6d2d8401acfcd69e"
+    },
+    {
+      "layer": "ot_buhd_l",
+      "dimension": 2,
+      "records": 103,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "0b4c674e28647acb8f04e541ff04dff7077c7905710ba0b77a42a966a5dac561"
+    },
+    {
+      "layer": "ot_buib_a",
+      "dimension": 3,
+      "records": 8,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "8de0b420f0eebda9b2f305506a7f33d097711b28f8f3fc658639986703714651"
+    },
+    {
+      "layer": "ot_buib_l",
+      "dimension": 2,
+      "records": 7,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "763836d66b1ecff6a25822e701d986b182c02dd9734ba82b9d0236a0f46e0db7"
+    },
+    {
+      "layer": "ot_buin_l",
+      "dimension": 2,
+      "records": 246,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "f072d188bf49f4c01ad221b3f439c9779ea05f44e9545ed43fdb0bef391981e3"
+    },
+    {
+      "layer": "ot_buit_a",
+      "dimension": 3,
+      "records": 4,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "3496f27abd0ecd9d2f80e315e03536a5754fe651fe6ab7aedee8da9ffd98ec03"
+    },
+    {
+      "layer": "ot_buit_p",
+      "dimension": 1,
+      "records": 892,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "0c19095afc38263059f6f3efedb92792d6c1ae8781014747538d701e1966f6f1"
+    },
+    {
+      "layer": "ot_busp_a",
+      "dimension": 3,
+      "records": 263,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "70086a6cb1fca01fc3adfda5eb8c4bfb847d2918cb0a3ab5a4e5f3e11eb8b60b"
+    },
+    {
+      "layer": "ot_busp_l",
+      "dimension": 2,
+      "records": 22,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "8a07f97df4136f3cb427c81e1716f6c51f7163e1941aaa0d0253f70616b495a5"
+    },
+    {
+      "layer": "ot_butr_l",
+      "dimension": 2,
+      "records": 11,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "542d62276fd266e314fc6cf280adec3a28e7cde5dba4058de2d255362d0fac08"
+    },
+    {
+      "layer": "ot_buuo_l",
+      "dimension": 2,
+      "records": 45,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "7c7285334facb92ff01efef3ced43765e34334166e4b48c236c553430cd380aa"
+    },
+    {
+      "layer": "ot_buwt_p",
+      "dimension": 1,
+      "records": 527,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "eae9d4acce29c8d88da545fc9de08b31b1f8293b741e266723be425bda36f3a6"
+    },
+    {
+      "layer": "ot_buzm_l",
+      "dimension": 2,
+      "records": 1689,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d25d4bf1fe7fe66ff404dbf79692210dbc8c4f2083a7698226f3217062263973"
+    },
+    {
+      "layer": "ot_buzt_a",
+      "dimension": 3,
+      "records": 52,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "c17480b9211ffae126fa7c9f9b5eb6f1ec2f360a38bf217137f9be7b528f74e7"
+    },
+    {
+      "layer": "ot_buzt_p",
+      "dimension": 1,
+      "records": 590,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "a500ebbf5a835435412638ef7e17c3b70a614e30f1dc346341943b77c10d0009"
+    },
+    {
+      "layer": "ot_kuho_a",
+      "dimension": 3,
+      "records": 5,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "257a269673477c24aa4db0cd976b33037579180eb0a54f7b9713efefb836688b"
+    },
+    {
+      "layer": "ot_kuhu_a",
+      "dimension": 3,
+      "records": 4,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "c65cdf4622e6903d437349954a7a775a8286bb33339b7e8fa1e7de5854415d2c"
+    },
+    {
+      "layer": "ot_kuko_a",
+      "dimension": 3,
+      "records": 50,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "daab7bba106fe3279b534496bacb810a10f095c6c5f93eec6bc73adae71a61c0"
+    },
+    {
+      "layer": "ot_kuko_p",
+      "dimension": 1,
+      "records": 2,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "9aa763785c560d86d0d29137f5329852456efe318f76b795396a46c1e2ed2067"
+    },
+    {
+      "layer": "ot_kumn_a",
+      "dimension": 3,
+      "records": 1,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "74c06708c4c88b3be527d5cff75c6acd234048070c4859c0a273ed1851a43ae7"
+    },
+    {
+      "layer": "ot_kuos_a",
+      "dimension": 3,
+      "records": 63,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1ab354705b66edee6bc18c0e609a71f4da9b5ed0e58548c201422bee73881da4"
+    },
+    {
+      "layer": "ot_kuoz_a",
+      "dimension": 3,
+      "records": 2,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "6cee643d06d21658eaf6bcf7fc549280c94dd1cb67187d4cf96aa0fafc8ec115"
+    },
+    {
+      "layer": "ot_kupg_a",
+      "dimension": 3,
+      "records": 167,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "7bd83c992f8a0a7a2b5c4609c7a5a8d736952c4e91322f52be8740dc108c29e9"
+    },
+    {
+      "layer": "ot_kupg_p",
+      "dimension": 1,
+      "records": 32,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "40e830783d332f62c1aaec2c9cb0f1f03c714e2789d1fc2272b81fc4be026c3c"
+    },
+    {
+      "layer": "ot_kusc_a",
+      "dimension": 3,
+      "records": 56,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1de1bead5d926eb022543b7242ea5eab0b2d5997d0715ed5fbe845437704ad56"
+    },
+    {
+      "layer": "ot_kusk_a",
+      "dimension": 3,
+      "records": 18,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d896964cf4e307ebc5b97e9327243836e97310ff0b049485af90e7fb44a5e552"
+    },
+    {
+      "layer": "ot_kuza_a",
+      "dimension": 3,
+      "records": 1,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "b28d73c2e51aa828c6b3fbf08cc07f91633c8cf311ce3427e282d5ac11a295c1"
+    },
+    {
+      "layer": "ot_oikm_l",
+      "dimension": 2,
+      "records": 8,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "45df465319cf5916559efe9dee727c7b7b12a503d5b232510f1f2e747ca2a7c9"
+    },
+    {
+      "layer": "ot_oikm_p",
+      "dimension": 1,
+      "records": 606,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1855e24716dcabcfbe596b4528f10c9df95577003e44df98bb0e435ad8246c3c"
+    },
+    {
+      "layer": "ot_oimk_a",
+      "dimension": 3,
+      "records": 3269,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "f13a06efef24c0a7d8fb4842f9888270286c3c2b1b3062912e86133d3231e36c"
+    },
+    {
+      "layer": "ot_oior_a",
+      "dimension": 3,
+      "records": 144,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "41c965b97a15c33de8263086bb38fe78a3c95281bf6377caf8b8d0f9a1aa0d9b"
+    },
+    {
+      "layer": "ot_oior_l",
+      "dimension": 2,
+      "records": 63,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "188fc49a697bb409b1648c577cd03049781bbb19c0cf3bf7c932ff82007e6b92"
+    },
+    {
+      "layer": "ot_oior_p",
+      "dimension": 1,
+      "records": 1604,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "3e064d8fd45f1156501066d4acac914aec24bca98035b29c2015b2228582a7be"
+    },
+    {
+      "layer": "ot_oipr_l",
+      "dimension": 2,
+      "records": 6351,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "9d92e8408961627690629cf926cf76c1f279a46d1c0982229543c7589f245795"
+    },
+    {
+      "layer": "ot_oipr_p",
+      "dimension": 1,
+      "records": 49446,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "8612eda42f67d3853c4807b9d9e38c9a9cc98a0ad5f0fb7cc24b83a929311c28"
+    },
+    {
+      "layer": "ot_oisz_a",
+      "dimension": 3,
+      "records": 141,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "32106196bcc737feed2ea1d43e8ba7e2a300e974c41466d15ea7ad67f945cafe"
+    },
+    {
+      "layer": "ot_ptgn_a",
+      "dimension": 3,
+      "records": 11,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "e6a119f77042c0d67b9a5841e4226cc9296b3e2f26983cc5f91de28c4bd4aaf4"
+    },
+    {
+      "layer": "ot_ptkm_a",
+      "dimension": 3,
+      "records": 27,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "c5ddb6fa34cf9341815e6d13b9a39310f9317b02a57976141a2a5eb9d138baec"
+    },
+    {
+      "layer": "ot_ptlz_a",
+      "dimension": 3,
+      "records": 6332,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "05dcd256065ee2bb67dae68c7f98a22f8bea2b8d7823bd37a4abcb966890c281"
+    },
+    {
+      "layer": "ot_ptnz_a",
+      "dimension": 3,
+      "records": 212,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "4fa68c8ff1e8bd3a5bd675fa62d9b8b65a352df089f1c1678f83f325e0dfafcb"
+    },
+    {
+      "layer": "ot_ptpl_a",
+      "dimension": 3,
+      "records": 382,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d15a90181bcc780231a3f3847026b2f7812fc376ab92b5ac1e1515854f4af0ea"
+    },
+    {
+      "layer": "ot_ptrk_a",
+      "dimension": 3,
+      "records": 161,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "dd4b0997a6b7769e73f910271f76c6a6178e8ca29f8b8a95449898a75b1f18e8"
+    },
+    {
+      "layer": "ot_ptso_a",
+      "dimension": 3,
+      "records": 2,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "17ee11ecedb49cfef201fb5967ac89c390c412b2108d8d78efee29ff07793476"
+    },
+    {
+      "layer": "ot_pttr_a",
+      "dimension": 3,
+      "records": 10902,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d1a0416e35b147da1e9c3bd71fea6a62bf5491a5ee804777c073e5bb4e8e6ac2"
+    },
+    {
+      "layer": "ot_ptut_a",
+      "dimension": 3,
+      "records": 5463,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "5271ab910e720a4bd9dc657e9162fb8bdafb5e2b58de12f96875c057390a4e2b"
+    },
+    {
+      "layer": "ot_ptwp_a",
+      "dimension": 3,
+      "records": 1999,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d62a3d058b505e9c47662d4ae6afe0c72543be7ff257de454deeddf20bd1a172"
+    },
+    {
+      "layer": "ot_ptwz_a",
+      "dimension": 3,
+      "records": 44,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "d7a9b50e5245a17a239ea43aec2d7f4135f0ef04fdfe1e1598f1a9a2e1f5459e"
+    },
+    {
+      "layer": "ot_ptzb_a",
+      "dimension": 3,
+      "records": 7594,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1957bf7374ac7b666e958d6153da4203962343f4bda024f38afb873fb0743c96"
+    },
+    {
+      "layer": "ot_skdr_l",
+      "dimension": 2,
+      "records": 50683,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "30250e923f0a6fe48f6b0b84cdb7eb2129a2bba7247015c728fb7b0913e01f5e"
+    },
+    {
+      "layer": "ot_skjz_l",
+      "dimension": 2,
+      "records": 51003,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "a5b2106dd5110bf6eef689a23f4a23f4ad0616a03a45dadc740fa32e92e33fb2"
+    },
+    {
+      "layer": "ot_skpp_l",
+      "dimension": 2,
+      "records": 3,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1157712e1b842736a502b6c500b3b8fef5f093afe09eaf2ec37d4536a9f2de92"
+    },
+    {
+      "layer": "ot_skrp_l",
+      "dimension": 2,
+      "records": 1627,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "0dc8a8aa5a5794c5bea1a6cf318043a8db828806504ebbbca025e5e06222189a"
+    },
+    {
+      "layer": "ot_skrw_p",
+      "dimension": 1,
+      "records": 19,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "45a6fc36495c7da1af21e0f517d618d1f6127aabf1c32d18de30c9863ee91657"
+    },
+    {
+      "layer": "ot_sktr_l",
+      "dimension": 2,
+      "records": 81,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "697cfd73d909dce7a7dd61f6cf21844afbe1273fc97f6382234258490d658d34"
+    },
+    {
+      "layer": "ot_suln_l",
+      "dimension": 2,
+      "records": 1511,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "139927976d28973989c3cd867899461b37e1b0b86ae6add40f70ad0d6631a064"
+    },
+    {
+      "layer": "ot_supr_l",
+      "dimension": 2,
+      "records": 1,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "dda4efac372e9c829476d645cb16b331066e6516f7bcced0054e42c22ac82a6d"
+    },
+    {
+      "layer": "ot_swrm_l",
+      "dimension": 2,
+      "records": 5919,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "73d53f8837b3ce2ca8aeb7227120ed28833490cd5aa07033c9b6811d2b88abe3"
+    },
+    {
+      "layer": "ot_swrs_l",
+      "dimension": 2,
+      "records": 956,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "1ae7d67c9a57e52039eb638e8cdb5afeb9f5c4e58778f428fe5436592b5bcd4f"
+    },
+    {
+      "layer": "ot_tcon_a",
+      "dimension": 3,
+      "records": 22,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "4a102f83dfa2d05a1765e065a031b8e898b23a95b43dd1abdfaf2adabdc07ddc"
+    },
+    {
+      "layer": "ot_tcpk_a",
+      "dimension": 3,
+      "records": 35,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "5837aa3fdf88687cbb1c3b49f54fd7dc2430fff00de220bb3562613b582b2aea"
+    },
+    {
+      "layer": "ot_tcpn_a",
+      "dimension": 3,
+      "records": 2,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "a26eece8c9ab81994012b6cdb3addf427c995eb83af6ee44139220f23246f776"
+    },
+    {
+      "layer": "ot_tcrz_a",
+      "dimension": 3,
+      "records": 3,
+      "repaired": 0,
+      "empty": 0,
+      "source_sha256": "28d86425eca845f4ed1d9101fb33a1171f36a59e5d2db548406698323fbfceb2"
+    }
+  ],
+  "county_name": "powiat biłgorajski",
+  "source": "Geoportal GUGiK, paczka powiatowa SHP, stan na koniec 2025 roku",
+  "archive_name": "0602_SHP_2025.zip",
+  "archive_sha256": "a2d0aac9d8d322c64eba9e91577b4e4d20b69df8677727938ae78139c144ac03"
+}
