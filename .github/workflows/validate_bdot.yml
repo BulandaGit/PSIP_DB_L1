@@ -1,0 +1,41 @@
+name: Validate BDOT analysis
+
+on:
+  pull_request:
+    branches: [env-test, env-qa, main]
+    paths:
+      - 'app/python/**'
+      - 'docker/python/**'
+      - '.github/workflows/validate_bdot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgis:
+        image: postgis/postgis:16-3.5
+        env:
+          POSTGRES_USER: psip
+          POSTGRES_DB: psip
+          POSTGRES_PASSWORD: validation-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U psip -d psip"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: docker build -f docker/python/Dockerfile -t psip-h3-tools:lab2 .
+      - name: Test import and boundary-safe spatial aggregation
+        run: |
+          docker run --rm --network host \
+            -e PGHOST=127.0.0.1 -e PGPORT=5432 -e PGUSER=psip -e PGDATABASE=psip \
+            -e PGPASSWORD=validation-only -e RUN_BDOT_SQL_TESTS=1 \
+            psip-h3-tools:lab2 python -m unittest discover -s /app/python/tests -v

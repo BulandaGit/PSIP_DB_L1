@@ -118,4 +118,79 @@ python app/python/h3_generator.py --resolutions 6 7 8 9 --output .local/grid_060
 python -m unittest discover -s app/python/tests -v
 ```
 
-Ten etap kończy się na podpunkcie 3. Pobieranie BDOT10K i agregacja danych należą do kolejnych podpunktów.
+## Zadanie 2 — podpunkty 4–5: BDOT10K i agregacja
+
+Źródło danych: paczka **`0602_SHP_2025.zip`**, pobrana przez użytkownika z Geoportalu GUGiK, stan na koniec 2025 roku. Zawiera **65 klas i 292 766 obiektów**: 36 warstw poligonowych, 19 liniowych i 10 punktowych. Wszystkie rekordy mają kod powiatu `0602`. Spis warstw, liczebności i sumy SHA256 plików źródłowych znajdują się w `app/data/bdot_0602_2025_manifest.json`. Surowa paczka pozostaje poza repozytorium.
+
+### Import — podpunkt 4
+
+`app/python/bdot_import.py` importuje wszystkie klasy do osobnych tabel schematu `bdot` **wyłącznie bazy env-test**. Zachowuje atrybuty DBF, zapisując nazwy pól małymi literami. Dodaje `county_code`, `source_fid` oraz geometrię `geom`, z indeksem przestrzennym. Dane są zapisane w **EPSG:2180**.
+
+Importer odczytuje układ z `.prj`, kodowanie z `.cpg`, weryfikuje TERYT i liczby rekordów oraz sprawdza poprawność geometrii. Zapis wszystkich klas odbywa się w jednej transakcji. Ponowne uruchomienie zastępuje tylko rekordy wskazanego powiatu w tych samych klasach. Dane innych powiatów i schematów pozostają zachowane. Tabela `bdot._import_manifest` zawiera metadane importu.
+
+### Obliczenia — podpunkt 5
+
+`app/python/bdot_aggregate.py` wykonuje wszystkie obliczenia w **EPSG:2180**. Dla każdej rozdzielczości tworzy osobną tabelę wynikową:
+
+| Rozdzielczość | Wynik obliczeń EPSG:2180 | Gotowa geometria EPSG:3857 |
+| --- | --- | --- |
+| 6 | `grid.h3_r6_bdot` | `grid.h3_r6_bdot_3857` |
+| 7 | `grid.h3_r7_bdot` | `grid.h3_r7_bdot_3857` |
+| 8 | `grid.h3_r8_bdot` | `grid.h3_r8_bdot_3857` |
+| 9 | `grid.h3_r9_bdot` | `grid.h3_r9_bdot_3857` |
+
+Każdy heksagon ma **65 osobnych kolumn wynikowych**, po jednej na warstwę źródłową:
+
+- Poligony: `<klasa>_area_m2`, suma powierzchni przecięć obiektów z heksagonem, w m².
+- Linie: `<klasa>_length_m`, suma długości fragmentów wewnątrz heksagonu, w metrach.
+- Punkty: `<klasa>_count`, liczba punktów przypisanych do heksagonu.
+
+Przykłady: `ot_bubd_a_area_m2` — powierzchnia budynków, `ot_skdr_l_length_m` — długość dróg, `ot_oipr_p_count` — liczba obiektów punktowej klasy OIPR. Wszystkie pola wynikowe są wypełnione, również zerami dla heksagonów bez obiektów danej klasy. Opisy miar i jednostki zapisane są w `grid.bdot_metrics`.
+
+Obliczenia obejmują części obiektów wewnątrz granicy powiatu i `geom_clipped` siatki. Powierzchnie nakładających się obiektów tej samej klasy są sumowane osobno dla każdego obiektu. Duże geometrie liniowe i poligonowe są dzielone na mniejsze części przez `ST_Subdivide`, aby przyspieszyć przecięcia. Punkty są zachowywane bez podziału. Referencyjne sumy są liczone przed podziałem i dodatkowo porównywane z miarami po podziale.
+
+Powtarzające się odcinki wewnątrz jednego obiektu liniowego są łączone przez `ST_UnaryUnion` przed pomiarem referencyjnym i przecięciami z siatką. W paczce występuje jeden taki obiekt jezdni, z powtórzonym fragmentem ok. 18,81 m. Oryginalna geometria i atrybuty pozostają w tabeli źródłowej `bdot`; normalizacja dotyczy obliczeń. Odrębne obiekty liniowe są nadal mierzone osobno.
+
+Punkt na wspólnej granicy trafia do jednego heksagonu; przy remisie wybierany jest najmniejszy `h3_id`. Dopuszczalna tolerancja przypisania punktu to 0,0000001 m, wyłącznie dla różnic numerycznych na granicach. Fragment linii pokrywający wspólną krawędź też ma jednego właściciela. Zapobiega to podwójnemu liczeniu.
+
+Po obliczeniach geometrie wynikowe są przeliczane przez `ST_Transform` do **EPSG:3857** w widokach `*_3857`. **Kolumny powierzchni i długości zachowują wartości obliczone w EPSG:2180**. Widok `grid.powiat_3857` udostępnia granicę w tym samym układzie prezentacji.
+
+Każda para warstwa–rozdzielczość jest sprawdzana przez porównanie sumy wyników w heksagonach z niezależną sumą obiektów przyciętych do powiatu. Dla punktów wymagana jest zgodność dokładna; dla długości i powierzchni stosowana jest mała tolerancja obliczeń zmiennoprzecinkowych. Wyniki **260 kontroli** znajdują się w `grid.bdot_aggregation_checks`. Błąd kontroli wycofuje całą transakcję agregacji.
+
+Dokumentacja użytych funkcji PostGIS: [ST_Intersection](https://postgis.net/docs/ST_Intersection.html), [ST_Subdivide](https://postgis.net/docs/ST_Subdivide.html), [ST_Covers](https://postgis.net/docs/ST_Covers.html).
+
+### Powtórzenie importu i obliczeń
+
+Przy działającym Docker Desktop, z katalogu projektu:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Run-BdotAnalysis.ps1 -SourceDirectory "C:\Users\Dawid\Downloads\0602_SHP_2025"
+```
+
+Dodanie `-SkipImport` przelicza agregację na danych już obecnych w bazie. Raporty JSON i CSV są domyślnie zapisywane w ignorowanym katalogu `.local/bdot-reports`. Opcjonalny parametr `-OutputDirectory` zmienia katalog raportów.
+
+Kontrola w oknie SQL QGIS:
+
+```sql
+SELECT count(*) AS liczba_klas, sum(imported_count) AS liczba_obiektow
+FROM bdot._import_manifest WHERE county_code = '0602';
+
+SELECT count(*) AS liczba_kontroli, bool_and(passed) AS wszystkie_poprawne
+FROM grid.bdot_aggregation_checks WHERE county_code = '0602';
+
+SELECT h3_id, ot_bubd_a_area_m2, ot_skdr_l_length_m, ot_oipr_p_count
+FROM grid.h3_r7_bdot_3857
+WHERE county_code = '0602' LIMIT 10;
+```
+
+Po ponownym wygenerowaniu siatek H3 należy ponownie uruchomić agregację, aby wyniki odpowiadały aktualnym heksagonom. Workflow `Validate BDOT analysis` sprawdza importer i operacje przestrzenne na osobnej bazie testowej GitHub Actions.
+
+### Mapy QGIS i przekazanie wyników
+
+W katalogu repozytorium znajduje się **`Powiat_bilgorajski_BDOT_3857_baza.qgz`** — projekt korzystający z tabel bazy `env-test`. Zawiera 65 źródłowych warstw BDOT i trzy przykładowe prezentacje dla każdej rozdzielczości: powierzchnię budynków, długość dróg oraz liczbę punktów OIPR. W tabelach atrybutów wynikowych warstw dostępne są wszystkie 65 miar.
+
+Przygotowane są również pliki przenośne: **`Powiat_bilgorajski_BDOT_3857_przenosny.qgz`** i **`BDOT_Bilgorajski_wyniki_3857.gpkg`**. Należy trzymać je w jednym katalogu. Ten projekt odczytuje cztery siatki wynikowe i granicę z GeoPackage, więc działa także bez Dockera. Wszystkie geometrie w paczce mają EPSG:3857, a pola powierzchni i długości zawierają wyniki obliczeń w EPSG:2180.
+
+`scripts/Create-BdotQgis.py` odtwarza eksport i projekty. Uruchamia się go Pythonem dostarczanym z QGIS, z hasłem lokalnej bazy w zmiennej procesu `PGPASSWORD`. Parametry: `--output-dir`, `--live-project`, `--manifest`. Istniejące projekty są chronione przed nadpisaniem. Opcja `--reuse-export` pozwala dokończyć budowę projektu po sprawdzeniu już utworzonego GeoPackage. Projekty nie przechowują hasła bazy.
+
+Weryfikacja końcowa: 17 testów generatora/importera/SQL, 260 kontroli sum agregacji, osobne porównanie wszystkich 10 klas punktowych ze źródłem oraz zgodność wartości miar między tabelami EPSG:2180 a widokami EPSG:3857. Każdy wynik ma odpowiednio 76, 426, 2630 lub 17361 rekordów i 65 kolumn miar.
